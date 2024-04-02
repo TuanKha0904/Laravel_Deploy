@@ -8,7 +8,7 @@
 </head>
 <body>
     <a href="{{$yahooUrl}}">Yahoo</a>
-    <a href="">Twitter</a>
+    <a href="{{$twitterUrl}}">Twitter</a>
     <a href="">Apple ID</a>
 </body>
 </html>
