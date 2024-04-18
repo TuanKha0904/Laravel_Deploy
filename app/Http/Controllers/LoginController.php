@@ -20,9 +20,9 @@ class LoginController extends Controller
     public function index(Request $request){
         // $yahooUrl = $this->yahooService->getLoginBaseUrl();
         // $twitterUrl = $this->twitterService->getLoginBaseUrl();
-        $company = Company::all();
+        $companies = Company::all();
         $employees = Employee::all();
-        return view('layouts.app', compact('company', 'employees'));
+        return view('layouts.app', compact('companies', 'employees'));
     }
 
     public function yahooLogin(Request $request){
