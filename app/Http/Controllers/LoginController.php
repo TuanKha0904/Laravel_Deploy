@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Employee;
 use App\Services\YahooService;
 use App\Services\TwitterService;
 use Illuminate\Http\Request;
@@ -16,13 +18,11 @@ class LoginController extends Controller
         $this->twitterService = $twitterService;
     }
     public function index(Request $request){
-        $yahooUrl = $this->yahooService->getLoginBaseUrl();
-        $twitterUrl = $this->twitterService->getLoginBaseUrl();
-        return view('welcome', compact('yahooUrl', 'twitterUrl'));
-    }
-
-    public function dashBoard(){
-        return view('dashboard');
+        // $yahooUrl = $this->yahooService->getLoginBaseUrl();
+        // $twitterUrl = $this->twitterService->getLoginBaseUrl();
+        $company = Company::all();
+        $employees = Employee::all();
+        return view('layouts.app', compact('company', 'employees'));
     }
 
     public function yahooLogin(Request $request){
