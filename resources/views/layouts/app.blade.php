@@ -21,24 +21,18 @@
 <body>
     <div class="container">
         <div class="row mt-3 mb-3">
-            <form action="" method="GET">
+            <form action="{{ route('search') }}" method="GET">
                 <div class="container mt-3 col-md-10 d-flex">
                     <div class="col-md-3" style="font-weight:bold">Comany</div>
                     <div class="col-md-3">
-                        <Select class="form-select form-select-sm" name="saleId">
+                        <Select class="form-select form-select-sm" name="company_id">
                             <option value="">Select Company</option>
                             @foreach ($companies as $company)
-                                <option value="{{ $company->id }}"
-                                    @if (request('') == $company->id) selected @endif>
+                                <option value="{{ $company->id }}" @if (request('company_id') == $company->id) selected @endif>
                                     {{ $company->name }}
                                 </option>
                             @endforeach
                         </Select>
-                        <span class="text-danger">
-                            @error('')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
                 </div>
                 <div class="container col-md-10 d-flex mt-2">
@@ -71,23 +65,28 @@
                         </label>
                     </div>
                 </div>
+                {{-- @if (request()->filled('inputSearch') && !request()->filled('option'))
+                    <span class="text-danger">
+                        Please select a search option.
+                    </span>
+                @endif --}}
                 <div class="container col-md-10 d-flex mt-2">
                     <div class="col-md-3 me-2">
-                        <input type="text" name="inputSearch" class="form-control"
+                        <input type="text" name="inputSearch" id="inputSearch" class="form-control"
                             @if (request('inputSearch')) value="{{ request('inputSearch') }}" @endif>
+                        {{-- @if (!request()->filled('option')) disabled @endif> --}}
+                        <span class="text-danger">
+                            @error('inputSearch')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         {{ __('Search') }}
                     </button>
 
                 </div>
-                <div class="container col-md-10">
-                    <span class="text-danger">
-                        @error('inputSearch')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                </div>
+               
             </form>
         </div>
         <table class="table table-striped">
@@ -110,7 +109,18 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $employees->links() }}
     </div>
 </body>
+<script>
+    // Lắng nghe sự kiện thay đổi của các tùy chọn tìm kiếm
+    document.querySelectorAll('input[name="option"]').forEach(function(option) {
+        option.addEventListener('change', function() {
+            // Nếu không có tùy chọn nào được chọn, vô hiệu hóa trường tìm kiếm
+            document.getElementById('inputSearch').disabled = !document.querySelector(
+                'input[name="option"]:checked');
+        });
+    });
+</script>
 
 </html>
