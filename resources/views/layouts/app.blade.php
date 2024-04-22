@@ -15,11 +15,16 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
+    @inertiaHead
 </head>
 
 <body>
-    <div class="container">
+    @inertia
+    <div id="my-app" class="container">
+        
+    </div>
+    {{-- <div class="container">
         <div class="row mt-3 mb-3">
             <form action="{{ route('search') }}" method="GET">
                 <div class="container mt-3 col-md-10 d-flex">
@@ -65,16 +70,10 @@
                         </label>
                     </div>
                 </div>
-                {{-- @if (request()->filled('inputSearch') && !request()->filled('option'))
-                    <span class="text-danger">
-                        Please select a search option.
-                    </span>
-                @endif --}}
                 <div class="container col-md-10 d-flex mt-2">
                     <div class="col-md-3 me-2">
                         <input type="text" name="inputSearch" id="inputSearch" class="form-control"
                             @if (request('inputSearch')) value="{{ request('inputSearch') }}" @endif>
-                        {{-- @if (!request()->filled('option')) disabled @endif> --}}
                         <span class="text-danger">
                             @error('inputSearch')
                                 {{ $message }}
@@ -84,9 +83,7 @@
                     <button type="submit" class="btn btn-primary">
                         {{ __('Search') }}
                     </button>
-
                 </div>
-               
             </form>
         </div>
         <table class="table table-striped">
@@ -110,7 +107,7 @@
             </tbody>
         </table>
         {{ $employees->links() }}
-    </div>
+    </div> --}}
 </body>
 <script>
     // Lắng nghe sự kiện thay đổi của các tùy chọn tìm kiếm
