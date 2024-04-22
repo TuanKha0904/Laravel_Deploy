@@ -12,7 +12,7 @@ class EmployeeController extends Controller
     public function index(){
         $company = Company::all();
         $employees = Employee::all();
-        return Inertia::render('/employee', [
+        return Inertia::render('/', [
             'companies' => $company,
             'employees' => $employees
         ]);
